@@ -41,8 +41,6 @@ logging:
     com.sample: debug
     org.springframework: warn
 
-poller:
-  fixedDelay: 100
-  fixedRate: false
-  initialDelay: 1000
-  maxMessagesPerPoll: 1
+data-grid:
+  address: localhost:6379
+  lock-time-to-live-seconds: 1800
