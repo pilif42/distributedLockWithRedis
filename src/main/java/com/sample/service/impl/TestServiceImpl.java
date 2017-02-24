@@ -10,23 +10,25 @@ import org.springframework.stereotype.Service;
 @Service
 public class TestServiceImpl implements TestService {
 
-  private static final String TEST_LOCK = "testLock";
-
   @Autowired
   private DistributedLockManager lockManager;
 
   @Override
   public void completeSomeProcess() {
     log.debug("completeSomeProcess ...");
-    if (!lockManager.isLocked(TEST_LOCK) && lockManager.lock(TEST_LOCK)) {
+
+    // For instance, browse a directory for files and pick one file for processing
+    String fileNameToBeProcessed = "theFileDealtWithByThisInstance";
+
+    if (!lockManager.isLocked(fileNameToBeProcessed) && lockManager.lock(fileNameToBeProcessed)) {
       try {
         log.debug("lock acquired - about to process...");
-        Thread.sleep(10000);  // replace with some real processing, ie process files from a directory or ...
+        Thread.sleep(10000);  // replace with some real processing, ie parse the file 
       } catch (InterruptedException e) {
         // TODO
       } finally {
         log.debug("processing done - about to release lock");
-        lockManager.unlock(TEST_LOCK);
+        lockManager.unlock(fileNameToBeProcessed);
         log.debug("lock released");
       }
     }

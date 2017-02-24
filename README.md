@@ -7,6 +7,9 @@ mvn clean install
 ##################################################
 # To run
 ##################################################
+- Prerequisites:
+    - Install Redis. See config used in application.yml under data-grid.
+
 java -jar target/distributedLockWithRedis-1.0.0-SNAPSHOT.jar
 
 
